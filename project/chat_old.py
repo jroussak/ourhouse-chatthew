@@ -10,7 +10,8 @@ from chatterbot.trainers import UbuntuCorpusTrainer
 
 from chatterbot.trainers import ListTrainer
 
-
+#from convokit import Corpus, download
+#corn_corpus = Corpus(filename=download("movie-corpus"))
 
 ###import nltk
 ###import ssl
@@ -42,17 +43,26 @@ stuff = trainer.download("https://www.kaggle.com/datasets/rtatman/ubuntu-dialogu
 #path = "./Desktop/project/MyTrainer.yml"
 
 list_trainer = ListTrainer(chatbot)
-source1 = "/Users/joshuaroussak/Desktop/project/CURRENT_DATA/MyTrainer.yml"
-source2 = "/Users/joshuaroussak/Desktop/project/CURRENT_DATA/CopiedFromIntents.json"
 
+# Establishing the datasets
+source1 = "/Users/joshuaroussak/Desktop/Chatthew/project/CURRENT_DATA/MyTrainer.yml"
+source2 = "/Users/joshuaroussak/Desktop/Chatthew/project/CURRENT_DATA/CopiedFromIntents.json"
+source3 = "/Users/joshuaroussak/Desktop/Chatthew/project/archive/test.csv"
+
+# Opening each dataset in "read"
 source_file1 = open(source1, "r")
 source_file2 = open(source2, "r")
+#source_file3 = open(source3, "r")
 
+# Splitting each source into a list (Chatterbot trainer needs to be fed a list)
 source_data1 = source_file1.read().splitlines()
 source_data2 = source_file2.read().splitlines()
+#source_data3 = source_file3.read().splitlines()
 
+# Training Chatthew with each list of lines
 list_trainer.train(source_data1)
 list_trainer.train(source_data2)
+#list_trainer.train(source_data3)
 
 # Note: Deleted "chatterbot.corpus.english.emotion" from this list because it returned "No, I am sober" to "what is your name"
 """
@@ -102,6 +112,7 @@ class ChatBot():
         print("me --> ", self.text)
         """
 
+        # COMMENTING OUT THE "ME" STUFF HERE BECAUSE IT'S UNNECESSARY
         try:
             self.text = recognizer.recognize_google(audio)
             print("me --> ", self.text)
@@ -117,13 +128,14 @@ class ChatBot():
         os.system("afplay res.mp3")
         os.remove("res.mp3")
 
-
+    """
     def wake_up(self, text):
         #if self.name in text.lower():
         if self.name in text:
             return True
         else:
             return False
+    """
 
 
 
@@ -137,7 +149,7 @@ if __name__ == "__main__":
 
 
     while True:
-        """
+        
         # Gets your input from speech and stores it as text in ai.text
         ai.speech_to_text()
 
@@ -147,26 +159,25 @@ if __name__ == "__main__":
         if var in exit_conditions:
             ai.text_to_speech("Talk to you later")
             break
-        
-        #var = input("ENTER SOMETHING: ")
 
         # Uses the ai.wakeup() function with your input to see if its name is in your input (If its name is there, return True; else, False)
-        if ai.wake_up(var) == True:
-            res = "Hi! My name is Chatthew the AI. What's up?"
-        elif "what's up" in var:
+        #if ai.wake_up(var) == True:
+            #res = "Hi! My name is Chatthew the AI. What's up?"
+        """
+        if "what's up" in var:
             res = "Not much. How about you?"
         else:
             res = str(chatbot.get_response(var))
         #res = "test"
         ai.text_to_speech(res)
         """
+        #output = str(chatbot.get_response(var))
+        ai.text_to_speech(var)
+        #ai.text_to_speech("Hello")
         
+        """         ######## For not using voice ########
         var = input("Say something: ").lower()
-        if ai.wake_up(var):
-                print("YES")
         if var in exit_conditions:
                 break
-
-
-        #inp = input("Say something: ")
         print("Aviel: " + str(chatbot.get_response(var)))
+        """
