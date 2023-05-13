@@ -1,3 +1,1 @@
-# My first file çççççççççç0 wahoooooooooooo
-
-# testinggggggggggggg
+# This is a project to develop a conversational chatbot named Chatthew
